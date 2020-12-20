@@ -3,3 +3,63 @@
 	padding: 0;
 	border: none;
 }
+body{
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	height: 100%;
+	max-height: auto;
+	width: 100%;
+	background-image: url(../assets/bg.svg);
+	background-position: 0px;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.card{
+	margin: 0 20px 20px 0;
+	width: 100px;
+	height: 150px;
+	border-radius: 15px;
+	border:10px solid #091330;
+	box-shadow: 0 0 10px rgba(74,20,140 ,1);
+}
+
+.card:hover{
+	box-shadow: 0 0 15px rgba(103,58,183 ,1);
+	cursor: pointer;
+	transform: rotateY(180deg);
+}
+
+.card__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: .75s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .card__container {
+  transform: rotateY(180deg);
+}
+
+.card_front, .card_back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; 
+  backface-visibility: hidden;
+}
+
+.card_front {
+  background-image: url(../assets/cb.svg);
+  background-size: 150px;	
+}
+
+.card_back {
+  transform: rotateY(180deg);
+}
+
