@@ -1,5 +1,8 @@
-const container = document.querySelector('.container'),
-	  checkedCards = [];
+const container = document.querySelector('.container');
+let checkedCards = [],
+	score = 0;
+let checkedCardsContainers = [];
+let foundMatches = [];
 const cardsData = ((assetsPath)=>{
 	const arr = [];
 	for (let i = 1; i <= 9; i++) {
@@ -44,14 +47,40 @@ function createCard(cardName, cardImgPath) {
 }
 
 container.addEventListener('click', (e)=>{
-	if(checkedCards.length < 2){
-		checkedCards.push(e.target.nextSibling.attributes.name);
-		flipCard(e.target.offsetParent);
+	if(e.target.classList[0]==='card_back') {
+		console.log(e.target.offsetParent);
+		console.log(e.target);
+		if(checkedCards.length <= 2){
+			const cardContainer = e.target.offsetParent;
+			cardContainer.classList.toggle('flip');
+			checkedCards.push(e.target.nextSibling.attributes.name.value);
+			checkedCardsContainers.push(cardContainer);
+			if(checkedCards.length == 2){
+				if(checkedCards[0] === checkedCards[1]){
+					foundMatches = foundMatches.concat(checkedCards);
+					checkedCardsContainers.forEach(el =>{
+						console.log(el);
+						changeOpacity(el);
+					});
+					console.log(score++);
+				}
+				checkedCardsContainers.forEach(el =>{
+						flipBack(el);
+				});
+				checkedCardsContainers = [];
+				checkedCards = [];
+			}
+		}
 	}	
 });
 
-function flipCard(card){
-	card.classList.toggle('flip');
+function changeOpacity(card){
+	setTimeout(()=>{
+		card.style.opacity = '0';
+	}, 1500);
+}
+
+function flipBack(card){
 	setTimeout(()=>{
 		card.classList.toggle('flip');
 	}, 1500);
