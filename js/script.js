@@ -1,29 +1,37 @@
-const container = document.querySelector('.container');
+const container = document.querySelector('.container'),
+	  cardsData = ((assetsPath)=>{
+		  const arr = [];
+		  for (let i = 1; i <= 9; i++) {
+		      const card = {path: `${assetsPath}p${i}.svg`, name: `p${i}`};
+			  arr.push(card, card);
+		  }
+		  return arr;
+	  })('assets/');
+
 let checkedCards = [],
-	score = 0;
-let checkedCardsContainers = [];
-let foundMatches = [];
-const cardsData = ((assetsPath)=>{
-	const arr = [];
-	for (let i = 1; i <= 9; i++) {
-		const card = {path: `${assetsPath}p${i}.svg`, name: `p${i}`};
-		arr.push(card, card);
-	}
-	return arr;
-})('assets/');
-
-const shuffledCards = cardsData.sort(()=> 0.5 - Math.random());
+	checkedCardsContainers = [],
+	shuffledCards = shuffleArray(cardsData),
+	foundMatches = [];
 
 
 
-console.log(shuffledCards);
-window.addEventListener('load', (e) => {	
+function shuffleArray(o){
+	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {	
+	appendCards(shuffledCards);
+});
+
+function appendCards(shuffledCards){
 	const fragment = document.createDocumentFragment();
 	for (let card of shuffledCards) {
 		fragment.appendChild(createCard(card.name, card.path));
 	}	
 	container.appendChild(fragment);
-});
+}
 
 
 function createCard(cardName, cardImgPath) {
@@ -37,6 +45,7 @@ function createCard(cardName, cardImgPath) {
 	cardFront.appendChild(img);
 	card.classList.add('card'); 
 	cardBack.classList.add('card_back'); 
+	cardBack.addEventListener('click', checkCard);
 	cardFront.classList.add('card_front'); 
 	cardFront.setAttribute('name', cardName);
 	cardContainer.classList.add('card__container'); 
@@ -46,42 +55,74 @@ function createCard(cardName, cardImgPath) {
 	return card;
 }
 
-container.addEventListener('click', (e)=>{
-	if(e.target.classList[0]==='card_back') {
-		console.log(e.target.offsetParent);
-		console.log(e.target);
-		if(checkedCards.length <= 2){
-			const cardContainer = e.target.offsetParent;
-			cardContainer.classList.toggle('flip');
-			checkedCards.push(e.target.nextSibling.attributes.name.value);
-			checkedCardsContainers.push(cardContainer);
-			if(checkedCards.length == 2){
-				if(checkedCards[0] === checkedCards[1]){
-					foundMatches = foundMatches.concat(checkedCards);
-					checkedCardsContainers.forEach(el =>{
-						console.log(el);
-						changeOpacity(el);
-					});
-					console.log(score++);
-				}
+
+function checkCard(e){
+	if (checkedCards.length < 2) {
+		const cardContainer = e.target.offsetParent;
+		cardContainer.classList.add('flip');
+		checkedCards.push(e.target.nextSibling.attributes.name.value);
+		checkedCardsContainers.push(cardContainer);
+		if(checkedCards.length == 2){
+			if(checkedCards[0] === checkedCards[1]){
+				foundMatches = foundMatches.concat(checkedCards);
 				checkedCardsContainers.forEach(el =>{
-						flipBack(el);
+					changeSize(el);
 				});
+			}else{
+				checkedCardsContainers.forEach(el =>{
+					flipBack(el);
+				});
+			}
+			setTimeout(()=>{
 				checkedCardsContainers = [];
 				checkedCards = [];
-			}
+			}, 600);
+		}
+	}
+	if (foundMatches.length === shuffledCards.length) {
+		const winContainer = document.querySelector('.win__container');
+		if ( winContainer !== null) {
+			document.querySelector('.win__container').style.display = 'flex';
+		}else{
+			showWinMessage();
 		}
 	}	
-});
+}
 
-function changeOpacity(card){
+function changeSize(card){
 	setTimeout(()=>{
-		card.style.opacity = '0';
-	}, 1500);
+		card.style.width = '0';
+		card.style.height = '0';
+		card.childNodes.forEach(cardInnerStyle => cardInnerStyle.style.display = "none");
+	}, 500);
 }
 
 function flipBack(card){
 	setTimeout(()=>{
-		card.classList.toggle('flip');
-	}, 1500);
+		card.classList.remove('flip');
+	}, 500);
+}
+
+function showWinMessage(){
+	const winMessage = document.createElement('div'),
+		  heading = document.createElement('h1'),
+		  button = document.createElement('button');
+	winMessage.classList.add('win__container');
+	heading.classList.add('win__heading');
+	button.classList.add('win__button');
+	button.innerText = 'Restart!';
+	heading.innerHTML= 'Congratulations!<br>You won!';
+	button.addEventListener('click', reset);
+	winMessage.appendChild(heading);
+	winMessage.appendChild(button);
+	document.body.appendChild(winMessage);
+}
+
+function reset(){
+	shuffledCards = shuffleArray(cardsData);
+	const clearVars = [checkedCards, checkedCardsContainers, foundMatches].map(variable =>  variable = []);
+	[checkedCards, checkedCardsContainers, foundMatches] = clearVars;
+	container.innerHTML = '';
+	document.querySelector('.win__container').style.display = 'none';
+	appendCards(shuffledCards);
 }

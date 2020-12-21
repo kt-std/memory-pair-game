@@ -6,6 +6,7 @@
 body{
 	display: flex;
 	align-items: center;
+	flex-direction: column;
 	align-content: center;
 	justify-content: center;
 	min-height: 100vh;
@@ -15,6 +16,9 @@ body{
 	background-position: 0px;
 	background-size: cover;
 	background-repeat: no-repeat;
+	color: white;
+	cursor:auto;
+	cursor: url(../assets/cursor.png) 0 0, auto;  
 }
 
 .card{
@@ -23,12 +27,15 @@ body{
 	height: 150px;
 }
 
-.card:hover{
-	cursor: pointer;
+.card_front:hover,
+.card_back:hover,
+.win__button:hover{{
+	cursor: pointer;	
+	cursor: url(../assets/pointer.png) 0 0, pointer; 
 }
 
 .container{
-	margin: 20px 0;
+	margin:  0;
 	display: flex;
 	align-items: center;
 	align-content: center;
@@ -40,22 +47,19 @@ body{
 	box-shadow: 0 0 10px rgba(74,20,140 ,1);
 	position: relative;
 	width: 100%;
-
 	border-radius: 15px;
 	height: 100%;
 	text-align: center;
-	transition: .75s;
+	transition: .6s;
 	transform-style: preserve-3d;
 }
 
 .flip{
-/*.card:hover .card__container{*/
 	transform: rotateY(180deg);
 }
 
 
 .card_front, .card_back {
-
 	border-radius: 15px;
 	position: absolute;
 	width: 100%;
@@ -70,6 +74,7 @@ body{
 }
 
 .card_front {
+	background-color:#1a1440;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -79,4 +84,56 @@ body{
 .card__image{
 	width: 50px;
 	height: 50px;
+}
+
+.no-opacity{
+	opacity: 0;
+}
+.win__container{
+	width: 350px;
+	transition: .5s;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	z-index: 2;
+	height: 300px;
+	background-image: url(../assets/frame.svg);
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.win__button{
+	height: 60px;
+	width: 100px;
+	position: absolute;
+	bottom: -20px;
+	color: white;
+	text-shadow: 0 0 5px rgba(0,0,0,.6);
+	background-color: transparent;
+	background-image: url(../assets/button.svg);
+	font-size: 16px;
+}
+
+.win__button:hover{
+	cursor: pointer;
+	transform: scale(1.05);
+}
+.win__heading{
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 24px;
+}
+
+.game__heading,
+.win__heading,
+.win__button{
+	font-family: 'Slackey', cursive;
+}
+
+.game__heading{
+	color: rgba(255,171,0 ,1);
+	margin-bottom: 5px;
+	text-transform: uppercase;
 }
