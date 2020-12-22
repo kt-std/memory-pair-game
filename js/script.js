@@ -1,4 +1,5 @@
 const container = document.querySelector('.container'),
+	  fadeIn = [{ transform: 'rotateY(0deg)'}, { transform: 'rotateY(360deg)' }],
 	  cardsData = ((assetsPath)=>{
 		  const arr = [];
 		  for (let i = 1; i <= 9; i++) {
@@ -27,14 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function appendCards(shuffledCards){
 	const fragment = document.createDocumentFragment();
-	for (let card of shuffledCards) {
-		fragment.appendChild(createCard(card.name, card.path));
-	}	
+	shuffledCards.forEach((card, index) =>{	
+		fragment.appendChild(createCard(card.name, card.path, index));
+	});	
 	container.appendChild(fragment);
 }
 
 
-function createCard(cardName, cardImgPath) {
+function createCard(cardName, cardImgPath, index) {
 	const card = document.createElement('div'),
 		  cardContainer = document.createElement('div'),
 		  cardBack = document.createElement('div'),
@@ -51,6 +52,7 @@ function createCard(cardName, cardImgPath) {
 	cardContainer.classList.add('card__container'); 
 	cardContainer.appendChild(cardBack);
 	cardContainer.appendChild(cardFront);
+	cardContainer.animate(fadeIn, {delay: index*500, duration: 700, direction: 'alternate-reverse'});
 	card.appendChild(cardContainer);
 	return card;
 }

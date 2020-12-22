@@ -27,12 +27,6 @@ body{
 	height: 150px;
 }
 
-.card_front:hover,
-.card_back:hover,
-.win__button:hover{{
-	cursor: pointer;	
-	cursor: url(../assets/pointer.png) 0 0, pointer; 
-}
 
 .container{
 	margin:  0;
@@ -99,7 +93,7 @@ body{
 	justify-content: center;
 	z-index: 2;
 	height: 300px;
-	background-image: url(../assets/frame.svg);
+	background-image: url(../assets/frame2.svg);
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -117,8 +111,14 @@ body{
 }
 
 .win__button:hover{
-	cursor: pointer;
 	transform: scale(1.05);
+}
+
+.card_front:hover,
+.card_back:hover,
+.win__button:hover{
+	cursor: pointer;	
+	cursor: url(../assets/pointer.png) 0 0, pointer; 
 }
 .win__heading{
 	text-transform: uppercase;
@@ -134,6 +134,6 @@ body{
 
 .game__heading{
 	color: rgba(255,171,0 ,1);
-	margin-bottom: 5px;
+	margin-bottom: 20px;
 	text-transform: uppercase;
 }
