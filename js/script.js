@@ -1,8 +1,7 @@
 const container = document.querySelector('.container'),
-	  fadeIn = [{ transform: 'rotateY(0deg)'}, { transform: 'rotateY(360deg)' }],
 	  cardsData = ((assetsPath)=>{
 		  const arr = [];
-		  for (let i = 1; i <= 9; i++) {
+		  for (let i = 1; i <= 2; i++) {
 		      const card = {path: `${assetsPath}p${i}.svg`, name: `p${i}`};
 			  arr.push(card, card);
 		  }
@@ -42,17 +41,18 @@ function createCard(cardName, cardImgPath, index) {
 		  cardFront = document.createElement('div'),
 		  img = document.createElement('img');
 	img.src = cardImgPath;
+	img.alt = `${cardName} card image`;
 	img.classList.add('card__image');
 	cardFront.appendChild(img);
 	card.classList.add('card'); 
 	cardBack.classList.add('card_back'); 
 	cardBack.addEventListener('click', checkCard);
-	cardFront.classList.add('card_front'); 
+	cardFront.classList.add('card_front','flex-center'); 
 	cardFront.setAttribute('name', cardName);
 	cardContainer.classList.add('card__container'); 
 	cardContainer.appendChild(cardBack);
 	cardContainer.appendChild(cardFront);
-	cardContainer.animate(fadeIn, {delay: index*500, duration: 700, direction: 'alternate-reverse'});
+	setTimeout(()=>cardContainer.style.opacity='1',index*150);
 	card.appendChild(cardContainer);
 	return card;
 }
@@ -83,9 +83,13 @@ function checkCard(e){
 	}
 	if (foundMatches.length === shuffledCards.length) {
 		const winContainer = document.querySelector('.win__container');
-		if ( winContainer !== null) {
-			document.querySelector('.win__container').style.display = 'flex';
+		if ( winContainer !== null) {	
+			const winMessage = document.querySelector('.win__container');
+			winMessage.style.opacity = '0';
+			winMessage.style.display = 'flex';
+			setTimeout(()=>winMessage.style.opacity='1',1000);
 		}else{
+
 			showWinMessage();
 		}
 	}	
@@ -109,7 +113,7 @@ function showWinMessage(){
 	const winMessage = document.createElement('div'),
 		  heading = document.createElement('h1'),
 		  button = document.createElement('button');
-	winMessage.classList.add('win__container');
+	winMessage.classList.add('win__container','flex-center');
 	heading.classList.add('win__heading');
 	button.classList.add('win__button');
 	button.innerText = 'Restart!';
@@ -118,6 +122,7 @@ function showWinMessage(){
 	winMessage.appendChild(heading);
 	winMessage.appendChild(button);
 	document.body.appendChild(winMessage);
+	setTimeout(()=>winMessage.style.opacity='1',1000);
 }
 
 function reset(){

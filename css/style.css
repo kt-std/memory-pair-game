@@ -1,139 +1,127 @@
-*{
-	margin:0;
-	padding: 0;
-	border: none;
-}
-body{
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	align-content: center;
-	justify-content: center;
-	min-height: 100vh;
-	max-height: auto;
-	width: 100%;
-	background-image: url(../assets/bg.svg);
-	background-position: 0px;
-	background-size: cover;
-	background-repeat: no-repeat;
-	color: white;
-	cursor:auto;
-	cursor: url(../assets/cursor.png) 0 0, auto;  
+* {
+    margin: 0;
+    padding: 0;
+    color: white;
+    border: none;
+    text-align: center;
+    text-transform: uppercase;
 }
 
-.card{
-	margin: 0 20px 20px 0;
-	width: 100px;	
-	height: 150px;
+body {
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+    background: url(../assets/bg.svg) no-repeat 0px;
+    background-size: cover;
+    cursor: auto;
+    cursor: url(../assets/cursor.png) 0 0, auto;
 }
 
-
-.container{
-	margin:  0;
-	display: flex;
-	align-items: center;
-	align-content: center;
-	justify-content: center;
-	width: 750px;
-	flex-wrap: wrap;
+.game__heading {
+    color: rgba(255, 171, 0, 1);
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.flip {
+    transform: rotateY(180deg);
+}
+
+.card {
+    margin: 0 20px 20px 0;
+    width: 100px;
+    height: 150px;
+}
+
+.container {
+    max-width: 750px;
+    flex-wrap: wrap;
+}
+
 .card__container {
-	box-shadow: 0 0 10px rgba(74,20,140 ,1);
-	position: relative;
-	width: 100%;
-	border-radius: 15px;
-	height: 100%;
-	text-align: center;
-	transition: .6s;
-	transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    opacity: 0;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(74, 20, 140, 1);
+    transform-style: preserve-3d;
+    transition: 0.6s;
 }
 
-.flip{
-	transform: rotateY(180deg);
-}
-
-
-.card_front, .card_back {
-	border-radius: 15px;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	-webkit-backface-visibility: hidden; 
-	backface-visibility: hidden;
+.card_front,
+.card_back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 15px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .card_back {
-	background-image: url(../assets/cb.svg);
-	background-size: 150px;	
+    background-image: url(../assets/cb.svg);
+    background-size: 150px;
 }
 
 .card_front {
-	background-color:#1a1440;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transform: rotateY(180deg);
+    background-color: #1a1440;
+    transform: rotateY(180deg);
 }
 
-.card__image{
-	width: 50px;
-	height: 50px;
+.card__image {
+    width: 50px;
+    height: 50px;
 }
 
-.no-opacity{
-	opacity: 0;
-}
-.win__container{
-	width: 350px;
-	transition: .5s;
-	position: absolute;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
-	z-index: 2;
-	height: 300px;
-	background-image: url(../assets/frame2.svg);
-	background-size: contain;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-.win__button{
-	height: 60px;
-	width: 100px;
-	position: absolute;
-	bottom: -20px;
-	color: white;
-	text-shadow: 0 0 5px rgba(0,0,0,.6);
-	background-color: transparent;
-	background-image: url(../assets/button.svg);
-	font-size: 16px;
+.win__container {
+    width: 350px;
+    height: 300px;
+    position: absolute;
+    z-index: 2;
+    flex-direction: column;
+    background-size: contain;
+    background: center url(../assets/frame2.svg) no-repeat;
+    opacity: 0;
+    transition: 0.5s;
 }
 
-.win__button:hover{
-	transform: scale(1.05);
+.win__heading {
+    font-size: 24px;
+}
+
+.win__button {
+    height: 60px;
+    width: 100px;
+    position: absolute;
+    bottom: -20px;
+    font-size: 16px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+    background-color: transparent;
+    background-image: url(../assets/button.svg);
+}
+
+.win__button:hover {
+    transform: scale(1.05);
 }
 
 .card_front:hover,
 .card_back:hover,
-.win__button:hover{
-	cursor: pointer;	
-	cursor: url(../assets/pointer.png) 0 0, pointer; 
+.win__button:hover {
+    cursor: pointer;
+    cursor: url(../assets/pointer.png) 0 0, pointer;
 }
-.win__heading{
-	text-transform: uppercase;
-	text-align: center;
-	font-size: 24px;
-}
+
 
 .game__heading,
 .win__heading,
-.win__button{
-	font-family: 'Slackey', cursive;
-}
-
-.game__heading{
-	color: rgba(255,171,0 ,1);
-	margin-bottom: 20px;
-	text-transform: uppercase;
+.win__button {
+    font-family: "Slackey", cursive;
 }
