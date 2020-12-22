@@ -100,12 +100,13 @@ body {
 .win__button {
     height: 60px;
     width: 100px;
+    outline: none;
     position: absolute;
     bottom: -20px;
     font-size: 16px;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
     background-color: transparent;
-    background-image: url(../assets/button.svg);
+    background: url(../assets/button.svg) no-repeat;
 }
 
 .win__button:hover {
