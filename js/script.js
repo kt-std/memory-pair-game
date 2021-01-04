@@ -1,22 +1,17 @@
 const container = document.querySelector(".container"),
-	numCards = 9,
-	cardsData = ((assetsPath) => {
-		const arr = [];
-		for (let i = 1; i <= numCards; i++) {
-			const card = {path: `${assetsPath}p${i}.svg`, name: `p${i}`};
-			arr.push(card, card);
-		}
-		return arr;
-	})("assets/");
-
-let checkedCards = [],
-	checkedCardsContainers = [],
-	shuffledCards = shuffleArray(cardsData),
-	foundMatches = [];
+	numCards = 9;
+let cardsDataInitial = Array(numCards)
+	.fill()
+	.map((_, i) => ({ path: `assets/p${i + 1}.svg`, name: `p${i + 1}` })),
+	checkedCards = [],
+	foundMatches = [],
+	checkedCardsContainers = [];
+const cardsData = cardsDataInitial.concat(cardsDataInitial);
+let shuffledCards = shuffleArray(cardsData);
 
 function shuffleArray(o) {
 	for (
-		var j, x, i = o.length;
+		let j, x, i = o.length;
 		i;
 		j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
 	);
@@ -142,3 +137,4 @@ function reset() {
 	document.querySelector(".win__container").style.display = "none";
 	appendCards(shuffledCards);
 }
+
